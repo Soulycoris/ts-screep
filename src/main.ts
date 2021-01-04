@@ -1,14 +1,41 @@
-import { ErrorMapper } from "utils/ErrorMapper";
+import { doing, stateScanner } from "./utils/utils";
+import { ErrorMapper } from "./utils/ErrorMapper";
+// import creepNumberListener from "./utils/creepController";
+// import { creepApi } from "./utils/creepController";
+import { creepSpawn } from "./utils/creepSpawn";
+import mountWork from "./mount";
 
-// When compiling TS to JS and bundling with rollup, the line numbers and file names in error messages change
-// This utility uses source maps to get the line numbers and file names of the original, TS source code
+const ROOM = "W1N7";
+const SPAWNS1 = "Happy Home";
+
 export const loop = ErrorMapper.wrapLoop(() => {
-  console.log(`Current game tick is ${Game.time}`);
+  if (Memory.showCost) console.log(`-------------------------- [${Game.time}] -------------------------- `);
 
-  // Automatically delete memory of missing creeps
-  for (const name in Memory.creeps) {
-    if (!(name in Game.creeps)) {
-      delete Memory.creeps[name];
+  // 挂载拓展
+  mountWork();
+  // console.log(Game.rooms[roomName].init());
+
+  // creep 数量控制
+  // creepNumberListener();
+  creepSpawn();
+
+  // 所有建筑、creep、powerCreep 执行工作
+  doing(Game.creeps);
+  // if (Game.spawns["Happy Home"].work) {
+  //   Game.spawns["Happy Home"].work();
+  // }
+  // type structureskey = keyof typeof Game.structures;
+  for (const key in Game.structures) {
+    const element = Game.structures[key];
+    if (element.work) {
+      element.work();
     }
   }
+
+  // for (const name in Game.creeps) {
+  //   Game.creeps[name].work();
+  // }
+
+  // 统计全局资源使用
+  stateScanner();
 });
