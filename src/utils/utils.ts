@@ -105,9 +105,9 @@ export const gotoHome = (creep: Creep): void => {
 export const assignPrototype = (target: { [key: string]: any }, source: { [key: string]: any }): void => {
   for (const key of Reflect.ownKeys(source)) {
     if (key !== "constructor" && key !== "prototype" && key !== "name") {
-      const desc = Object.getOwnPropertyDescriptor(source, key);
+      const desc = Reflect.getOwnPropertyDescriptor(source, key);
       if (desc) {
-        Object.defineProperty(target, key, desc);
+        Reflect.defineProperty(target, key, desc);
       }
     }
   }

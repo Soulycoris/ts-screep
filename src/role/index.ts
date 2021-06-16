@@ -3,7 +3,7 @@ import baseRoles from "./base";
 // import remoteRoles from "./remote";
 // import warRoles from "./war";
 
-const creepWork = {
+const creepWork: CreepWork = {
   ...baseRoles,
   ...advancedRoles
   // ...warRoles,

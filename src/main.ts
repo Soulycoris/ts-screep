@@ -5,9 +5,6 @@ import { ErrorMapper } from "./utils/ErrorMapper";
 import { creepSpawn } from "./utils/creepSpawn";
 import mountWork from "./mount";
 
-const ROOM = "W1N7";
-const SPAWNS1 = "Happy Home";
-
 export const loop = ErrorMapper.wrapLoop(() => {
   if (Memory.showCost) console.log(`-------------------------- [${Game.time}] -------------------------- `);
 

@@ -4,7 +4,6 @@ import { getCreepCount } from "./utils";
 // import roles from "role";
 // 孵化数量
 const ROOM = "W1N7";
-const SPAWNS1 = "Happy Home";
 
 export const creepSpawn = (): void => {
   if (Game.time % 5) return;

@@ -31,7 +31,7 @@ export const creepApi = {
     spawnRoom: string
   ): OK | ERR_NOT_FOUND | ERR_NOT_OWNER {
     if (!Memory.creepConfigs) Memory.creepConfigs = {};
-    if (!roles[role]) return ERR_NOT_FOUND;
+    if (!Reflect.has(roles, role)) return ERR_NOT_FOUND;
 
     const creepWork = roles[role](data);
     // 不管有没有直接覆盖掉
